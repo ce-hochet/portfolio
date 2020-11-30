@@ -46,7 +46,7 @@ Class SkillsController extends AbstractController{
 
 		if($form->isSubmitted() && $form->isValid())
 		{
-			$this->getDoctrine()->getManager()->persist($Skills);
+			$this->getDoctrine()->getManager()->persist($skills);
 			$this->getDoctrine()->getManager()->flush();
 			$this->addFlash("success", "La compétence a été ajouté avec succès !");
 			return $this->redirectToRoute("skill_manage");

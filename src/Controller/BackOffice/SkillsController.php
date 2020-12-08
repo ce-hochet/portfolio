@@ -33,12 +33,12 @@ Class SkillsController extends AbstractController{
             "skills" => $skills
         ]);
     }
-    /** 
+
+    /**
      * @Route("/create", name="skill_create")
      * @param Request $request
      * @return Response
      */
-
 	public function create(Request $request) :Response 
 	{
 		$skills = new Skills();
@@ -54,10 +54,26 @@ Class SkillsController extends AbstractController{
 		return $this->render("back_office\skills\create.html.twig", ["form"=>$form->createView()]);
 	}
 
-	public function update() :Response 
+ /**
+     * @Route("/{id}/update", name="skill_update")
+     * @param Skills skills
+     * @return Response
+     */
+	public function update(Skills $skills, Request $request) :Response 
 	{
+		
+		$form = $this->createForm(SkillsType::class,$skills)->handleRequest($request);
 
+		if($form->isSubmitted() && $form->isValid())
+		{
+			$this->getDoctrine()->getManager()->persist($skills);
+			$this->getDoctrine()->getManager()->flush();
+			$this->addFlash("success", "La compétence a été modifié avec succès !");
+			return $this->redirectToRoute("skill_manage");
+		}
+		return $this->render("back_office\skills\update.html.twig", ["form"=>$form->createView()]);
 	}
+
 
 	public function delete() :RedirectResponse 
 	{

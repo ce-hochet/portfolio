@@ -30,7 +30,7 @@ $builder->add("name", TextType::class, [
 			"label"=>"Votre niveau :",
 			"attr"=> [
 				"min"=>1,
-				"max"=>18]
+				"max"=>10]
 			])	;
 			
     }

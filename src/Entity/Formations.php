@@ -51,6 +51,12 @@ use Doctrine\ORM\Mapping as ORM;
        */
    private ?DateTimeInterface $endedAt=null;
 
+       /**
+       * @var string|null
+       * @ORM\Column(type="text")
+       */
+   private ?string $school=null;
+
    /**
        * @return int|null
        */
@@ -140,5 +146,22 @@ use Doctrine\ORM\Mapping as ORM;
     {
         $this->endedAt = $endedAt;
     }
+
+        /**
+     * @return string|null
+     */
+    public function getSchool(): ?string
+    {
+        return $this->school;
+    }
+
+    /**
+     * @param string|null $school
+     */
+    public function setSchool(?string $school): void
+    {
+        $this->school = $school;
+    }
+
 
  }

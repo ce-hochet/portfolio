@@ -25,59 +25,66 @@ Class SkillsController extends AbstractController{
 	* @return Response
 	*/
 
- public function manage(SkillsRepository $skillsRepository): Response
-    {
-        $skills = $skillsRepository->findAll();
+	public function manage(SkillsRepository $skillsRepository): Response
+	{
+		$skills = $skillsRepository->findAll();
 
-        return $this->render("back_office/skills/manage.html.twig", [
-            "skills" => $skills
-        ]);
-    }
+		return $this->render("back_office/skills/manage.html.twig", [
+			"skills" => $skills
+		]);
+	}
 
     /**
      * @Route("/create", name="skill_create")
      * @param Request $request
      * @return Response
      */
-	public function create(Request $request) :Response 
-	{
-		$skills = new Skills();
-		$form = $this->createForm(SkillsType::class,$skills)->handleRequest($request);
+    public function create(Request $request) :Response 
+    {
+    	$skills = new Skills();
+    	$form = $this->createForm(SkillsType::class,$skills)->handleRequest($request);
 
-		if($form->isSubmitted() && $form->isValid())
-		{
-			$this->getDoctrine()->getManager()->persist($skills);
-			$this->getDoctrine()->getManager()->flush();
-			$this->addFlash("success", "La compétence a été ajouté avec succès !");
-			return $this->redirectToRoute("skill_manage");
-		}
-		return $this->render("back_office\skills\create.html.twig", ["form"=>$form->createView()]);
-	}
+    	if($form->isSubmitted() && $form->isValid())
+    	{
+    		$this->getDoctrine()->getManager()->persist($skills);
+    		$this->getDoctrine()->getManager()->flush();
+    		$this->addFlash("success", "La compétence a été ajouté avec succès !");
+    		return $this->redirectToRoute("skill_manage");
+    	}
+    	return $this->render("back_office\skills\create.html.twig", ["form"=>$form->createView()]);
+    }
 
  /**
      * @Route("/{id}/update", name="skill_update")
      * @param Skills skills
      * @return Response
      */
-	public function update(Skills $skills, Request $request) :Response 
-	{
-		
-		$form = $this->createForm(SkillsType::class,$skills)->handleRequest($request);
+ public function update(Skills $skills, Request $request) :Response 
+ {
 
-		if($form->isSubmitted() && $form->isValid())
-		{
-			$this->getDoctrine()->getManager()->persist($skills);
-			$this->getDoctrine()->getManager()->flush();
-			$this->addFlash("success", "La compétence a été modifié avec succès !");
-			return $this->redirectToRoute("skill_manage");
-		}
-		return $this->render("back_office\skills\update.html.twig", ["form"=>$form->createView()]);
-	}
+ 	$form = $this->createForm(SkillsType::class,$skills)->handleRequest($request);
 
+ 	if($form->isSubmitted() && $form->isValid())
+ 	{
+ 		$this->getDoctrine()->getManager()->flush();
+ 		$this->addFlash("success", "La compétence a été modifié avec succès !");
+ 		return $this->redirectToRoute("skill_manage");
+ 	}
+ 	return $this->render("back_office\skills\update.html.twig", ["form"=>$form->createView()]);
+ }
 
-	public function delete() :RedirectResponse 
-	{
+ /**
+     * @Route("/{id}/delete", name="skill_delete")
+     * @param Skills skills
+     * @return RedirectResponse
+     */
+ public function delete(Skills $skills) :RedirectResponse 
+ {
+ 	$this->getDoctrine()->getManager()->remove($skills);
+ 	$this->getDoctrine()->getManager()->flush();
+ 	$this->addFlash("success", "La compétence a été supprimée avec succès !");
+ 	return $this->redirectToRoute("skill_manage");
+ }
 
-	}
 
 }

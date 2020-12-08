@@ -3,21 +3,7 @@
 {% block body %}
 <div class="row justify-content-center">
 <div class="col-12 col-md-8 col-lg-6 col-xl-4">
-	{{form_start(form) }}
-	<div class="card">
-		<div class="card-header"> Création d'un nouvelle compétence </div>
-		<div class="card-body">
-			{{ form_errors(form) }}
-			{{ form_row(form.name) }}
-			{{ form_row(form.level) }}
-		</div>
-
-		<div class="card-footer d-flex justify-content-between">
-			<a href="{{path("skill_manage")}}" class="btn btn-secondary"> Retour </a>
-			<button class="btn  btn-primary"> Ajouter </button>
-		</div>
-	</div>
-	{{ form_end(form) }}
+		{% include "back_office/skills/_form.html.twig" with {form:form, title :"Créer une nouvelle compétence", action:"Créer"}%}
    </div>
 </div>
 {% endblock %}

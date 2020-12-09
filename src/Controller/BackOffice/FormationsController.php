@@ -48,10 +48,10 @@ Class FormationsController extends AbstractController{
         {
             $this->getDoctrine()->getManager()->persist($formations);
             $this->getDoctrine()->getManager()->flush();
-            $this->addFlash("success", "La compétence a été ajouté avec succès !");
+            $this->addFlash("success", "La formation a été ajouté avec succès !");
             return $this->redirectToRoute("formation_manage");
         }
-        return $this->render("back_office\formations\create.html.twig", ["form"=>$form->createView()]);
+        return $this->render("back_office/formations/create.html.twig", ["form"=>$form->createView()]);
     }
 
  /**

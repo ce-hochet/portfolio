@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\FormationsRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -24,36 +25,41 @@ use Doctrine\ORM\Mapping as ORM;
    /**
     * @var string|null
     * @ORM\Column(type="string", length=255)
+    * @Assert\NotBlank(message="Ce champ ne peut pas être vide")
     */
    private ?string $name=null;
 
    /**
     * @var int|null
     * @ORM\Column(type="integer")
-    */
+    * @Assert\NotBlank(message="Ce champ ne peut pas être vide")
+     */
+
    private  ?int $gradeLevel =null;
 
    /**
     * @var string|null
     * @ORM\Column(type="text")
+    * @Assert\NotBlank(message="Ce champ ne peut pas être vide")
     */
    private ?string $description=null;
 
       /**
        * @var DateTimeInterface|null
        * @ORM\Column(type="date_immutable")
+       * @Assert\NotBlank(message="Ce champ ne peut pas être vide")
        */
    private ?DateTimeInterface $startedAt=null;
-
-      /**
-       * @var DateTimeInterface|null
-       * @ORM\Column(type="date_immutable", nullable=true)
-       */
+  /**
+     * @var DateTimeInterface|null
+     * @ORM\Column(type="date_immutable", nullable=true)
+     */
    private ?DateTimeInterface $endedAt=null;
 
        /**
        * @var string|null
        * @ORM\Column(type="text")
+       * @Assert\NotBlank(message="Ce champ ne peut pas être vide")
        */
    private ?string $school=null;
 
@@ -70,7 +76,7 @@ use Doctrine\ORM\Mapping as ORM;
    */
    public function getName(): ?string
    {
-       return $this->$name;
+       return $this->name;
    }
 
    /**
@@ -86,7 +92,7 @@ use Doctrine\ORM\Mapping as ORM;
        */
    public function getGradeLevel(): ?int
    {
-       return $this->$gradeLevel;
+       return $this->gradeLevel;
    }
 
    /**
@@ -94,7 +100,7 @@ use Doctrine\ORM\Mapping as ORM;
        */
    public function setGradeLevel(?int $gradeLevel): void
    {
-       $this->$gradeLevel = $gradeLevel;
+       $this->gradeLevel = $gradeLevel;
 
    }
 

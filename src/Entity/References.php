@@ -2,13 +2,17 @@
 
 namespace App\Entity;
 
-use App\Repository\ReferencesRepository;
+use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class References
- * @package App\Entity;
- * @ORM\Entity(repositoryClass=ReferencesRepository::class)
+ * Class Reference
+ * @package App\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\ReferenceRepository")
  */
 class References
 {
@@ -17,117 +21,122 @@ class References
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
+     * @Groups({"get"})
      */
-    private ?int $id=null;
+    private ?int $id = null;
 
     /**
      * @var string|null
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide.")
+     * @Groups({"get"})
      */
-    private ?string $title=null;
+    private ?string $title = null;
 
     /**
      * @var string|null
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide.")
+     * @Groups({"get"})
      */
-    private ?string $company=null;
+    private ?string $company = null;
 
     /**
      * @var string|null
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide.")
+     * @Groups({"get"})
      */
-    private ?string $description=null;
+    private ?string $description = null;
 
     /**
+     * @var DateTimeInterface|null
      * @ORM\Column(type="date_immutable")
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide.")
+     * @Groups({"get"})
      */
-    private ?DateTimeInterface $startedAt=null;
+    private ?DateTimeInterface $startedAt = null;
 
     /**
+     * @var DateTimeInterface|null
      * @ORM\Column(type="date_immutable", nullable=true)
+     * @Groups({"get"})
      */
-    private ?DateTimeInterface $endedAt=null;
+    private ?DateTimeInterface $endedAt = null;
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="Media", mappedBy="reference")
+     * @ORM\OneToMany(targetEntity="Media", mappedBy="reference", cascade={"persist"}, orphanRemoval=true)
+     * @Assert\Count(min=1, minMessage="Vous devez ajouter au moins une image.")
+     * @Groups({"get"})
      */
-
     private Collection $medias;
 
     /**
-     * Reference constructor
+     * Reference constructor.
      */
     public function __construct()
     {
         $this->medias = new ArrayCollection();
     }
 
-   /**
-       * @return int|null
-       */
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
- /**
-   * @return string|null 
-   */
+    /**
+     * @return string|null
+     */
     public function getTitle(): ?string
     {
         return $this->title;
     }
 
- /**
-   * @return string|null $title
-   */
-    public function setTitle(?string $title): ?string
+    /**
+     * @param string|null $title
+     */
+    public function setTitle(?string $title): void
     {
         $this->title = $title;
-
-        return $this;
     }
 
- /**
-   * @return string|null 
-   */
+    /**
+     * @return string|null
+     */
     public function getCompany(): ?string
     {
         return $this->company;
     }
 
- /**
-   * @return string|null $company
-   */
-    public function setCompany(?string $company): ?string
+    /**
+     * @param string|null $company
+     */
+    public function setCompany(?string $company): void
     {
         $this->company = $company;
-
-        return $this;
     }
 
-
- /**
-   * @return string|null $company
-   */
+    /**
+     * @return string|null
+     */
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
- /**
-   * @return string|null $description
-   */
-
-    public function setDescription(?string $description): ?string
+    /**
+     * @param string|null $description
+     */
+    public function setDescription(?string $description): void
     {
         $this->description = $description;
-
-        return $this;
     }
 
- /**
+    /**
      * @return DateTimeInterface|null
      */
     public function getStartedAt(): ?DateTimeInterface
@@ -159,7 +168,7 @@ class References
         $this->endedAt = $endedAt;
     }
 
-        /**
+    /**
      * @return Collection
      */
     public function getMedias(): Collection
@@ -167,7 +176,7 @@ class References
         return $this->medias;
     }
 
-     /**
+    /**
      * @param Media $media
      */
     public function addMedia(Media $media): void

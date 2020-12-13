@@ -1,5 +1,6 @@
 {% extends "base.html.twig" %}
 
+
 {% block body %}
 <div class="row justify-content-center">
 	<div class="col-12 col-md-10 col-lg-8 col-xl-6">
@@ -15,8 +16,6 @@
 						<th class="text-center text-uppercase">Nom</th>
 						<th class="text-center text-uppercase">École</th>
 						<th class="text-center text-uppercase">Niveau d'étude</th>
-						<th class="text-center text-uppercase">Début</th>
-						<th class="text-center text-uppercase">Fin</th>
 						<th class="text-center text-uppercase">Actions</th>
 					</tr>
 				</thead>
@@ -27,8 +26,6 @@
 						<td class="text-center align-middle"> {{ formation.name }}</td>
 						<td class="text-center align-middle"> {{ formation.school }}</td>
 						<td class="text-center align-middle"> {{ formation.gradeLevel }}</td>
-						<td class="text-center align-middle"> {{ formation.startedAt }}</td>
-						<td class="text-center align-middle"> {{ formation.endedAt }}</td>
 						<td class="text-center align-middle">
 							<a href="{{ path("formation_update", {id:formation.id}) }}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
 							<a href="{{ path("formation_delete", {id:formation.id}) }}" class="btn btn-danger"><i class="fas fa-trash"></i></a>

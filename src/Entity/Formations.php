@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\FormationsRepository;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use DateTimeInterface;
 
 /**
  * Class Formations
@@ -45,13 +46,13 @@ use Doctrine\ORM\Mapping as ORM;
    private ?string $description=null;
 
       /**
-       * @var DateTimeInterface|null
+       * @var \DateTimeInterface|null
        * @ORM\Column(type="date_immutable")
        * @Assert\NotBlank(message="Ce champ ne peut pas être vide")
        */
    private ?DateTimeInterface $startedAt=null;
   /**
-     * @var DateTimeInterface|null
+     * @var \DateTimeInterface|null
      * @ORM\Column(type="date_immutable", nullable=true)
      */
    private ?DateTimeInterface $endedAt=null;
@@ -68,7 +69,7 @@ use Doctrine\ORM\Mapping as ORM;
        */
    public function getId(): ?int
    {
-       return $this->$id;
+       return $this->id;
    }
 
    /**
@@ -122,7 +123,7 @@ use Doctrine\ORM\Mapping as ORM;
     }
 
     /**
-     * @return DateTimeInterface|null
+     * @return \DateTimeInterface|null
      */
     public function getStartedAt(): ?DateTimeInterface
     {
@@ -130,7 +131,7 @@ use Doctrine\ORM\Mapping as ORM;
     }
 
     /**
-     * @param DateTimeInterface|null $startedAt
+     * @param \DateTimeInterface|null $startedAt
      */
     public function setStartedAt(?DateTimeInterface $startedAt): void
     {
@@ -138,7 +139,7 @@ use Doctrine\ORM\Mapping as ORM;
     }
 
     /**
-     * @return DateTimeInterface|null
+     * @return \DateTimeInterface|null.
      */
     public function getEndedAt(): ?DateTimeInterface
     {
@@ -146,7 +147,7 @@ use Doctrine\ORM\Mapping as ORM;
     }
 
     /**
-     * @param DateTimeInterface|null $endedAt
+     * @param \DateTimeInterface|null $endedAt
      */
     public function setEndedAt(?DateTimeInterface $endedAt): void
     {

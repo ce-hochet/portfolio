@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Formations;
+use App\Entity\References;
 use DateTimeInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
@@ -12,16 +12,17 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 
 
 
 /** 
- * Class FormationsType
+ * Class ReferencesType
  * @package App\Form
  */
 
-Class FormationsType extends AbstractType{
+Class ReferencesType extends AbstractType{
 	/**
 	 * @inheritDoc
 	*/ 
@@ -29,34 +30,36 @@ Class FormationsType extends AbstractType{
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 
-		$builder->add("name", TextType::class, [
-			"label" =>"Nom de la formation :", 
-			"attr"=>["placeholder"=> "Entrez le nom de la formation ..."]
+		$builder->add("title", TextType::class, [
+			"label" =>"Nom de la références :", 
+			"attr"=>["placeholder"=> "Entrez le nom de la référence ..."]
 		])
-		->add("school",TextType::class, [
-			"label"=>"Nom de l'école :",
-			"attr"=>["placeholder"=>"Entrez le nom de l'école..."]
+		->add("company",TextType::class, [
+			"label"=>"Nom de l'entreprise :",
+			"attr"=>["placeholder"=>"Entrez le nom de l'entreprise'..."]
 		])
 
-		->add("gradeLevel", ChoiceType::class, ["label"=>"Niveau d'étude",
-			"choices"=>
-			["BAC"=> 0, "BAC+1"=>1, "BAC+2"=>2,"BAC+3"=>3,"BAC+4"=>4,"BAC+5"=>5, "BAC+8"=>8	]			
-		])
-		->add("description", TextareaType::class, ["label"=>"Description de la formation : ", 
+		->add("description", TextareaType::class, ["label"=>"Description de l'experience professionnelle : ", 
 			"attr"=>["placeholder"=>"Entrez une description ..."]
 		])
 	 ->add("startedAt", DateType::class, [
-                "label" => "Début de la formation",
+                "label" => "Début",
                 "input" => "datetime_immutable",
                 "widget" => "single_text"
             ])
             ->add("endedAt", DateType::class, [
-                "label" => "Fin de la formation",
+                "label" => "Fin",
                 "input" => "datetime_immutable",
                 "widget" => "single_text",
                 "required" => false
             ])
-        ;
+       ->add("medias", CollectionType::class,[
+       	"entry_type"=>"MediasType::class",
+       	" allow_add"=>true,
+       	" allow_delete"=>true,
+       	"by_reference"=>false
+       ])
+       ;
 
 	}
 
@@ -65,7 +68,7 @@ Class FormationsType extends AbstractType{
 	*/ 
     public function configureOptions(OptionsResolver $resolver)
     {
-    	$resolver->setDefault("data_class", Formations::class);
+    	$resolver->setDefault("data_class", References::class);
     }
 
 }

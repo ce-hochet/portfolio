@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head> 
+    <meta charset="UTF-8">
+
+    <title>{% block title %}Portfolio {% endblock %}</title>
+    {% block stylesheets %}
+    {{ encore_entry_link_tags('app')}}
+    {% endblock %}
+
+    <link rel="stylesheet" href="{{ asset('css/header.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+
+</head>
+
+<body>
+ {% include 'home/navbar.html.twig' %}
+ {% include 'home/header.html.twig' %}
+ <div class="container" style="height:1300px;">
+        <div class="row mt-5 pt-5">
+            <div class="col text-center">
+        {% block body %}  {% endblock %}
+    </div>
+    </div>
+</body>
+
+
+{% block javascripts %}
+{{ encore_entry_script_tags('app')}}
+{% endblock %}
+</body>
+</html>

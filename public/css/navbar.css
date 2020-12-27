@@ -1,0 +1,9 @@
+  
+@import '~bootstrap/scss/bootstrap';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+
+.navbar{background-color:#BD5D38}
+a{color:white}
+a:hover{color:white}
+#first_menu {margin-left:-150px;}
